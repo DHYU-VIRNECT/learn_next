@@ -6,7 +6,7 @@ import ErrorBoundary from "../components/wrappers/ErrorBoundary";
 import { Hydrate, QueryClient, QueryClientProvider } from "react-query";
 import Layout from "../components/wrappers/Layout";
 import { Provider } from "react-redux";
-import store from "../store";
+import store, { reduxWrapper } from "../store";
 
 const App = ({ Component, pageProps }: AppProps) => {
   const [queryClient] = React.useState(
@@ -37,4 +37,4 @@ const App = ({ Component, pageProps }: AppProps) => {
   );
 };
 
-export default App;
+export default reduxWrapper.withRedux(App);
