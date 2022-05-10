@@ -1,0 +1,9 @@
+$camera-gap : 15px;
+
+.cameras {
+  display : grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-auto-rows: min-content;
+  column-gap: $camera-gap;
+  row-gap : $camera-gap;
+}

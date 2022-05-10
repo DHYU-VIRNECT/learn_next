@@ -1,0 +1,15 @@
+@import '../../../styles/variables/index';
+@import '../../../styles/mixins/index';
+
+.container {
+  @include fill();
+  z-index: $z-index-top - 1;
+  display : flex;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
+}
+
+.text {
+  color : white;
+}

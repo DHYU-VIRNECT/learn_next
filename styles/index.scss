@@ -1,0 +1,22 @@
+@import './reset.css';
+
+#__next {
+  display : grid;
+  grid-template-columns: max-content 1fr max-content;
+  grid-auto-rows: max-content;
+  grid-template-areas:
+  "header . nav"
+  "main main main"
+;
+  min-height: 100vh;
+  padding : 20px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+main {
+  padding : 20px;
+  grid-area : main;
+}

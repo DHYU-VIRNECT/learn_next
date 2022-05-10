@@ -1,0 +1,31 @@
+.container {
+  display : flex;
+  flex-direction: column;
+  row-gap : 5px;
+}
+
+.title {
+  $gap : 5px;
+  font-size : 18px;
+  padding-bottom : $gap;
+  margin-bottom : $gap;
+  border-bottom: 1px solid black;
+}
+
+.cameras {
+  display : flex;
+  width : 100%;
+  column-gap : 15px;
+  overflow-x : auto;
+  & > * {
+    display : block;
+    flex-basis : 120px;
+    height : fit-content;
+    flex-grow : 0;
+    flex-shrink: 0;
+  }
+}
+
+.current-camera {
+  border : 2px solid red;
+}
