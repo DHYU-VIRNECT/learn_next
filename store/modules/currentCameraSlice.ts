@@ -5,6 +5,7 @@ import { RootState } from "./root";
 export type CurrentCameraState = CameraType | null;
 
 const currentCameraSlice = createSlice({
+  //camera played at the moment
   name: "currentCamera",
   initialState: null as CurrentCameraState,
   reducers: {

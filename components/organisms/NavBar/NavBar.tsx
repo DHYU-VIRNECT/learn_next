@@ -1,4 +1,4 @@
-import { NavBarTabType } from "./types";
+import { NavBarTabProps } from "./types";
 import Link from "next/link";
 import styles from "./NavBar.module.scss";
 import classNames from "classnames/bind";
@@ -14,7 +14,7 @@ const NavBar = () => {
   );
 };
 
-const NavBarTab = ({ text, to }: NavBarTabType) => (
+const NavBarTab = ({ text, to }: NavBarTabProps) => (
   <Link href={to}>
     <a>
       <div className={cx("tab")}>

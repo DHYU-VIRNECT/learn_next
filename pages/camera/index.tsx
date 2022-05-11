@@ -1,13 +1,13 @@
-import { dehydrate, QueryClient, useQuery } from "react-query";
+import { useQuery } from "react-query";
 import { getCameras } from "../../queries/useCameraQuery";
-import Camera from "../../components/molecules/Camera/Camera";
+import Camera from "../../components/atoms/Camera/Camera";
 import { CameraType } from "../../types/cameraType";
 import styles from "./Cameras.module.scss";
 import classNames from "classnames/bind";
 
 const cx = classNames.bind(styles);
 
-const Cameras = () => {
+const CamerasPage = () => {
   const { data } = useQuery("cameras", getCameras);
 
   return (
@@ -19,22 +19,4 @@ const Cameras = () => {
   );
 };
 
-export const getStaticProps = async () => {
-  const queryClient = new QueryClient({
-    defaultOptions: {
-      queries: {
-        suspense: true,
-      },
-    },
-  });
-
-  await queryClient.prefetchQuery("cameras", getCameras);
-
-  return {
-    props: {
-      dehydratedState: dehydrate(queryClient),
-    },
-  };
-};
-
-export default Cameras;
+export default CamerasPage;

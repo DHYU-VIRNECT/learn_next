@@ -1,12 +1,12 @@
 import React, { Suspense } from "react";
 import "../styles/index.scss";
-import { AppContext, AppInitialProps, AppProps } from "next/app";
+import { AppProps } from "next/app";
 import Loader from "../components/atoms/Loader/Loader";
 import ErrorBoundary from "../components/wrappers/ErrorBoundary";
 import { Hydrate, QueryClient, QueryClientProvider } from "react-query";
 import Layout from "../components/wrappers/Layout";
-import { Provider } from "react-redux";
-import store, { reduxWrapper } from "../store";
+import { reduxWrapper } from "../store";
+import ErrorFallback from "../components/atoms/ErrorFallback/ErrorFallback";
 
 const App = ({ Component, pageProps }: AppProps) => {
   const [queryClient] = React.useState(
@@ -21,19 +21,17 @@ const App = ({ Component, pageProps }: AppProps) => {
   );
 
   return (
-    <Provider store={store}>
-      <QueryClientProvider client={queryClient}>
-        <Hydrate state={pageProps.dehydratedState}>
-          <ErrorBoundary fallback={<div>something went wrong</div>}>
-            <Suspense fallback={<Loader />}>
-              <Layout>
-                <Component {...pageProps} />
-              </Layout>
-            </Suspense>
-          </ErrorBoundary>
-        </Hydrate>
-      </QueryClientProvider>
-    </Provider>
+    <QueryClientProvider client={queryClient}>
+      <Hydrate state={pageProps.dehydratedState}>
+        <ErrorBoundary fallback={<ErrorFallback />}>
+          <Suspense fallback={<Loader />}>
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
+          </Suspense>
+        </ErrorBoundary>
+      </Hydrate>
+    </QueryClientProvider>
   );
 };
 

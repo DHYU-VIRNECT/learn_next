@@ -1,7 +1,7 @@
 import { useCameraVideo } from "./useCameraVideo";
-import VideoOverlay from "../../molecules/VideoOverlay/VideoOverlay";
 import styles from "./CameraVideo.module.scss";
 import classNames from "classnames/bind";
+import VideoOverlay from "../VideoOverlay/VideoOverlay";
 
 const cx = classNames.bind(styles);
 

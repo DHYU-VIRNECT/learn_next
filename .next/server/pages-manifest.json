@@ -1,10 +1,11 @@
 {
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
-  "/_document": "pages/_document.js",
-  "/camera/[id]": "pages/camera/[id].js",
   "/api/camera": "pages/api/camera.js",
   "/api/camera/[id]": "pages/api/camera/[id].js",
-  "/": "pages/index.js",
-  "/camera": "pages/camera.js"
+  "/camera": "pages/camera.html",
+  "/": "pages/index.html",
+  "/camera/[id]": "pages/camera/[id].js",
+  "/_document": "pages/_document.js",
+  "/404": "pages/404.html"
 }

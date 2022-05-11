@@ -5,14 +5,16 @@ import CameraNavigation from "../../../components/organisms/CameraNavigation/Cam
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
-import { getCamera } from "../../../queries/useCameraQuery";
+import { getCamera, getCameras } from "../../../queries/useCameraQuery";
 import { dehydrate, QueryClient, useQuery } from "react-query";
 import { setCurrentCamera } from "../../../store/modules/currentCameraSlice";
 import { GetServerSideProps } from "next";
 import WithErrorBoundary, {
-  ErrorProps,
+  OnErrorProps,
 } from "../../../components/wrappers/HOC/WithErrorBoundary";
-import ErrorFallback from "../../../components/molecules/ErrorFallback/ErrorFallback";
+import ErrorFallback from "../../../components/atoms/ErrorFallback/ErrorFallback";
+import axios from "axios";
+import { setCameras } from "../../../store/modules/camerasSlice";
 
 const cx = classNames.bind(styles);
 
@@ -33,9 +35,11 @@ const useCameraPage = () => {
   const { id } = query;
 
   const { data } = useQuery(["camera", id], () => getCameraQuery(id));
+  const { data: cameras } = useQuery("cameras", getCameras);
 
   useEffect(() => {
     dispatch(setCurrentCamera(data));
+    dispatch(setCameras(cameras));
   }, [data, dispatch]);
 };
 
@@ -51,12 +55,19 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const queryClient = new QueryClient();
   try {
     await queryClient.fetchQuery(["camera", id], () => getCameraQuery(id));
+    //used fetchQuery instead of prefetchQuery to catch fetching errors
+
     return {
       props: {
         dehydratedState: dehydrate(queryClient),
       },
     };
   } catch (error) {
+    if (!axios.isAxiosError(error) || !error.response) {
+      return {
+        props: {},
+      };
+    }
     return {
       props: {
         errorCode: error.response.status,
@@ -65,7 +76,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   }
 };
 
-const OnError = ({ errorCode }: ErrorProps) => {
+const OnError = ({ errorCode }: OnErrorProps) => {
   const errorMessages = {
     403: "해당 카메라에 접근 권한이 없습니다",
     404: "해당 카메라를 찾을 수 없습니다",

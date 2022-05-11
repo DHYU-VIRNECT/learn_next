@@ -1,4 +1,4 @@
-export type NavBarTabType = {
+export type NavBarTabProps = {
   text: string;
   to: string;
 };

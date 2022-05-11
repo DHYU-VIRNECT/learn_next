@@ -1,10 +1,8 @@
-import currentCamera, { CurrentCameraState } from "./currentCameraSlice";
-import { Action, AnyAction, combineReducers } from "redux";
+import currentCamera from "./currentCameraSlice";
+import cameras from "./camerasSlice";
+import { AnyAction, combineReducers } from "redux";
 import { HYDRATE } from "next-redux-wrapper";
 
-// const rootReducer = combineReducers({
-//   currentCamera,
-// });
 const rootReducer = (state: any, action: AnyAction) => {
   if (action.type === HYDRATE) {
     return {
@@ -14,6 +12,7 @@ const rootReducer = (state: any, action: AnyAction) => {
   }
   return combineReducers({
     currentCamera,
+    cameras,
   })(state, action);
 };
 
